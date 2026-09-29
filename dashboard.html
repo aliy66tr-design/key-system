@@ -12,13 +12,24 @@
 </head>
 <body>
     <div class="box">
-        <h1>Dashboard'a Hoş Geldin!</h1>
+        <h1 id="welcomeText">Hoş geldin!</h1>
         <p>Bu alan sadece geçerli key giren kullanıcılara özeldir.</p>
         <button onclick="logout()">Çıkış Yap</button>
     </div>
+
     <script>
+        const user = sessionStorage.getItem('currentUser');
+        const welcomeEl = document.getElementById('welcomeText');
+
+        if (user && user.trim() !== '') {
+            welcomeEl.textContent = `Hoş geldin ${user}!`;
+        } else {
+            welcomeEl.textContent = 'Hoş geldin!';
+        }
+
         function logout() {
             sessionStorage.removeItem('isLoggedIn');
+            sessionStorage.removeItem('currentUser');
             window.location.href = 'key.html';
         }
     </script>

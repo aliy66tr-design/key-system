@@ -12,18 +12,21 @@
         <button onclick="verifyKey()">Giriş Yap</button>
         <div id="msg"></div>
     </div>
-    <script>
+<script>
         function verifyKey() {
             const inputVal = document.getElementById('keyInput').value.trim();
-            const validKeys = JSON.parse(localStorage.getItem('validKeys') || '[]');
+            const validKeysData = JSON.parse(localStorage.getItem('validKeysData') || '[]');
             const msgEl = document.getElementById('msg');
 
-            if (validKeys.includes(inputVal)) {
+            const matchedKey = validKeysData.find(item => item.key === inputVal);
+
+            if (matchedKey) {
                 msgEl.style.color = '#04d361';
                 msgEl.textContent = 'Key Başarılı! Yönlendiriliyorsunuz...';
                 
                 sessionStorage.setItem('isLoggedIn', 'true');
-                
+                sessionStorage.setItem('currentUser', matchedKey.user || '');
+
                 setTimeout(() => {
                     window.location.href = 'dashboard.html';
                 }, 1000);
@@ -33,5 +36,5 @@
             }
         }
     </script>
-</body>
+    </body>
 </html>
