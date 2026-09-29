@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key Verification</title>
+</head>
+<body>
+    <div class="card">
+        <h2>Key Doğrulama</h2>
+        <input type="text" id="keyInput" placeholder="KEY-XXXX-XXXX">
+        <button onclick="verifyKey()">Giriş Yap</button>
+        <div id="msg"></div>
+    </div>
+    <script>
+        function verifyKey() {
+            const inputVal = document.getElementById('keyInput').value.trim();
+            const validKeys = JSON.parse(localStorage.getItem('validKeys') || '[]');
+            const msgEl = document.getElementById('msg');
+
+            if (validKeys.includes(inputVal)) {
+                msgEl.style.color = '#04d361';
+                msgEl.textContent = 'Key Başarılı! Yönlendiriliyorsunuz...';
+                
+                sessionStorage.setItem('isLoggedIn', 'true');
+                
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1000);
+            } else {
+                msgEl.style.color = '#f75a68';
+                msgEl.textContent = 'Geçersiz Key!';
+            }
+        }
+    </script>
+</body>
+</html>

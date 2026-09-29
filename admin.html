@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Key Panel</title>
+</head>
+<body>
+    <div class="card">
+        <h2>Admin Panel</h2>
+        <p>Yeni bir erişim anahtarı oluştur:</p>
+        <button onclick="generateKey()">Yeni Key Oluştur</button>
+        <h3>Kayıtlı Key'ler:</h3>
+        <div class="key-list" id="keyList"></div>
+    </div>
+    <script>
+        function getKeys() {
+            return JSON.parse(localStorage.getItem('validKeys') || '[]');
+        }
+
+        function renderKeys() {
+            const keys = getKeys();
+            const listEl = document.getElementById('keyList');
+            listEl.innerHTML = keys.length ? '' : '<span style="color:#7c7c8a">Henüz key yok.</span>';
+            keys.forEach(k => {
+                const div = document.createElement('div');
+                div.className = 'key-item';
+                div.textContent = k;
+                listEl.appendChild(div);
+            });
+        }
+
+        function generateKey() {
+            const randomKey = 'KEY-' + Math.random().toString(36).substring(2, 8).toUpperCase() + '-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+            const keys = getKeys();
+            keys.push(randomKey);
+            localStorage.setItem('validKeys', JSON.stringify(keys));
+            renderKeys();
+        }
+
+        renderKeys();
+    </script>
+</body>
+</html>

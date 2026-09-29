@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script>
+        if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.href = 'key.html';
+        }
+    </script>
+</head>
+<body>
+    <div class="box">
+        <h1>Dashboard'a Hoş Geldin!</h1>
+        <p>Bu alan sadece geçerli key giren kullanıcılara özeldir.</p>
+        <button onclick="logout()">Çıkış Yap</button>
+    </div>
+    <script>
+        function logout() {
+            sessionStorage.removeItem('isLoggedIn');
+            window.location.href = 'key.html';
+        }
+    </script>
+</body>
+</html>
